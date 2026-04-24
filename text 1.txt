@@ -1,0 +1,554 @@
+if getgenv().Nousigi then 
+	if game.CoreGui:FindFirstChild("Nousigi Hub GUI") then
+		for i, v in ipairs(game.CoreGui:GetChildren()) do
+			if string.find(v.Name,  "Nousigi Hub") then
+				v:Destroy()
+			end
+		end
+	end
+end
+getgenv().Nousigi = true
+
+-- Theme: Viền trắng + Màu vàng thay vì cam
+local DisableAnimation = game.Players.LocalPlayer.PlayerGui:FindFirstChild('TouchGui')
+local T1UIColor = {
+	["Border Color"] = Color3.fromRGB(255, 255, 255),  -- Viền trắng
+	["Click Effect Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Setting Icon Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Logo Image"] = "rbxassetid://114259856900004",
+	["Search Icon Color"] = Color3.fromRGB(240, 240, 230),
+	["Search Icon Highlight Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["GUI Text Color"] = Color3.fromRGB(235, 235, 230),
+	["Text Color"] = Color3.fromRGB(235, 235, 230),
+	["Placeholder Text Color"] = Color3.fromRGB(170, 170, 160),
+	["Title Text Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Background Main Color"] = Color3.fromRGB(18, 18, 22),
+	["Background 1 Color"] = Color3.fromRGB(28, 28, 34),
+	["Background 1 Transparency"] = 0.1,
+	["Background 2 Color"] = Color3.fromRGB(38, 38, 46),
+	["Background 3 Color"] = Color3.fromRGB(48, 48, 56),
+	["Background Image"] = "",
+	["Page Selected Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Section Text Color"] = Color3.fromRGB(220, 220, 210),
+	["Section Underline Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Toggle Border Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Toggle Checked Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Toggle Desc Color"] = Color3.fromRGB(185, 185, 185),
+	["Button Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Label Color"] = Color3.fromRGB(38, 38, 42),
+	["Dropdown Icon Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Dropdown Selected Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Dropdown Selected Check Color"] = Color3.fromRGB(218, 165, 32), -- Vàng đậm hơn
+	["Textbox Highlight Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Box Highlight Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Slider Line Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
+	["Slider Highlight Color"] = Color3.fromRGB(218, 165, 32), -- Vàng đậm hơn
+	["Tween Animation 1 Speed"] = DisableAnimation and 0 or 0.25,
+	["Tween Animation 2 Speed"] = DisableAnimation and 0 or 0.5,
+	["Tween Animation 3 Speed"] = DisableAnimation and 0 or 0.1,
+	["Text Stroke Transparency"] = 0.5
+}
+
+getgenv().UIColor = T1UIColor
+getgenv().AllControls = {}
+getgenv().UIToggled = false
+
+
+local currcolor = {}
+local Library = {};
+local Library_Function = {}
+local TweenService = game:GetService('TweenService')
+local uis = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local function makeDraggable(topBarObject, object)
+	local dragging = nil
+	local dragInput = nil
+	local dragStart = nil
+	local startPosition = nil
+	topBarObject.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPosition = object.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	topBarObject.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	uis.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			local delta = input.Position - dragStart
+			if not djtmemay and cac then
+				TweenService:Create(object, TweenInfo.new(DisableAnimation and 0 or 0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+					Position = UDim2.new(startPosition.X.Scale, startPosition.X.Offset + delta.X, startPosition.Y.Scale, startPosition.Y.Offset + delta.Y)
+				}):Play()
+			elseif not djtmemay and not cac then
+				object.Position = UDim2.new(startPosition.X.Scale, startPosition.X.Offset + delta.X, startPosition.Y.Scale, startPosition.Y.Offset + delta.Y)
+			end
+		end
+	end)
+end
+
+Library_Function.Gui = Instance.new('ScreenGui')
+Library_Function.Gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Library_Function.Gui.Name = 'Nousigi Hub GUI'
+Library_Function.Gui.Enabled = false
+
+getgenv().ReadyForGuiLoaded = false
+spawn(function()
+	repeat
+		task.wait()
+	until getgenv().ReadyForGuiLoaded
+	if getgenv().UIToggled then
+		Library_Function.Gui.Enabled = true
+	end
+end)
+
+
+Library_Function.NotiGui = Instance.new('ScreenGui')
+Library_Function.NotiGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Library_Function.NotiGui.Name = 'Nousigi Hub Notification'
+
+Library_Function.HideGui = Instance.new('ScreenGui')
+Library_Function.HideGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Library_Function.HideGui.Name = 'Nousigi Hub Btn'
+
+
+local btnHide = Instance.new('TextButton', Library_Function.HideGui) 
+btnHide.BackgroundTransparency = 1
+btnHide.Text = ""
+btnHide.AnchorPoint = Vector2.new(0, 1)
+btnHide.Size = UDim2.new(0, 50, 0, 50)
+btnHide.Position = UDim2.new(0, 15, 1, -15)
+
+local btnHideFrame = Instance.new('Frame', btnHide)
+btnHideFrame.AnchorPoint = Vector2.new(0, 1)
+btnHideFrame.Size = UDim2.new(0, 50, 0, 50)
+btnHideFrame.Position = UDim2.new(0, 0, 1, 0)
+btnHideFrame.Name = "dut dit"
+btnHideFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btnHideFrame.BackgroundTransparency = getgenv().UIToggled and 0 or .25
+
+local imgHide = Instance.new('ImageLabel', btnHide)
+imgHide.AnchorPoint = Vector2.new(0, 0)
+imgHide.Image = getgenv().UIColor["Logo Image"]
+imgHide.BackgroundTransparency = 1
+imgHide.Size = UDim2.new(0, getgenv().UIToggled and (getgenv().T1 and 30 or 40) or (getgenv().T1 and 25 or 30), 0, getgenv().UIToggled and (getgenv().T1 and 30 or 40) or (getgenv().T1 and 25 or 30))
+imgHide.AnchorPoint = Vector2.new(.5, .5)
+imgHide.Position = UDim2.new(.5, 0, .5, 0)
+
+local UICornerBtnHide = Instance.new("UICorner")
+UICornerBtnHide.Parent = btnHideFrame
+UICornerBtnHide.CornerRadius = UDim.new(1, 0)
+
+Library.ToggleUI = function()
+	getgenv().UIToggled = not getgenv().UIToggled
+	local sizeXY = getgenv().UIToggled and (getgenv().T1 and 30 or 40) or (getgenv().T1 and 25 or 30)
+	TweenService:Create(imgHide, TweenInfo.new(DisableAnimation and 0 or .25), {
+		Size = UDim2.new(0, sizeXY, 0, sizeXY)
+	}):Play()
+	TweenService:Create(btnHideFrame, TweenInfo.new(DisableAnimation and 0 or .25), {
+		BackgroundTransparency = getgenv().UIToggled and 0 or .25
+	}):Play()
+	if game.CoreGui:FindFirstChild("Nousigi Hub GUI") then
+		for a, b in ipairs(game.CoreGui:GetChildren()) do
+			if b.Name == "Nousigi Hub GUI" then
+				b.Enabled = getgenv().UIToggled
+			end
+		end
+	end
+end
+
+Library.DestroyUI = function()
+	if game.CoreGui:FindFirstChild("Nousigi Hub GUI") then
+		for i, v in ipairs(game.CoreGui:GetChildren()) do
+			if string.find(v.Name,  "Nousigi Hub") then
+				v:Destroy()
+			end
+		end
+	end
+end
+
+if true then
+	local button = btnHide -- Assuming this is a TextButton or ImageButton
+	local UIS = game:GetService("UserInputService")
+	
+	local dragging = false
+	local dragInput, dragStart, startPos
+	local holdTime = 0.1 -- Time to hold before dragging is enabled
+	local holdStarted = 0
+	
+	-- Function to update the button's position
+	local function update(input)
+		local delta = input.Position - dragStart
+		button.Position = UDim2.new(
+			startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y
+		)
+	end
+	
+	-- Function to detect the start of dragging (for both mouse and touch)
+	local function onInputBegan(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			holdStarted = tick() -- Record the time when holding starts
+			dragStart = input.Position
+			startPos = button.Position
+	
+			-- Listen for release to stop dragging
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+					holdStarted = 0 -- Reset the hold timer
+				end
+			end)
+		end
+	end
+	
+	-- Function to detect when dragging stops
+	local function onInputEnded(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = false
+			holdStarted = 0 -- Reset the hold timer
+		end
+	end
+	
+	-- Detect input movement (for both mouse and touch)
+	local function onInputChanged(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end
+	
+	-- Connect the events
+	button.InputBegan:Connect(onInputBegan)
+	button.InputEnded:Connect(onInputEnded)
+	button.InputChanged:Connect(onInputChanged)
+	
+	-- RenderStepped updates the position while dragging
+	RunService.RenderStepped:Connect(function()
+		if holdStarted > 0 and (tick() - holdStarted >= holdTime) and not dragging then
+			dragging = true
+		end
+	
+		if dragging and dragInput then
+			update(dragInput)
+		end
+	end)
+		
+end
+
+btnHide.MouseButton1Click:Connect(function() 
+	Library.ToggleUI()
+end)
+
+local NotiContainer = Instance.new("Frame")
+local NotiList = Instance.new("UIListLayout")
+
+NotiContainer.Name = "NotiContainer"
+NotiContainer.Parent = Library_Function.NotiGui
+NotiContainer.AnchorPoint = Vector2.new(1, 1)
+NotiContainer.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+NotiContainer.BackgroundTransparency = 1.000
+NotiContainer.Position = UDim2.new(1, -5, 1, -5)
+NotiContainer.Size = UDim2.new(0, 350, 1, -10)
+
+NotiList.Name = "NotiList"
+NotiList.Parent = NotiContainer
+NotiList.SortOrder = Enum.SortOrder.LayoutOrder
+NotiList.VerticalAlignment = Enum.VerticalAlignment.Bottom
+NotiList.Padding = UDim.new(0, 5)
+
+
+Library_Function.Gui.Parent = game:GetService('CoreGui')
+Library_Function.NotiGui.Parent = game:GetService('CoreGui')
+Library_Function.HideGui.Parent = game:GetService('CoreGui')
+
+function Library_Function.Getcolor(color)
+	return {
+		math.floor(color.r * 255),
+		math.floor(color.g * 255),
+		math.floor(color.b * 255)
+	}
+end
+
+local libCreateNoti = function(Setting)
+	getgenv().TitleNameNoti = Setting.Title or ""; 
+	local Description = Setting.Description or Setting.Desc or Setting.Content or ""; 
+	local Duration = Setting.Duration or Setting.Timeshow or Setting.Delay or 10;
+
+	local NotiFrame = Instance.new("Frame")
+	local Noticontainer = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local Topnoti = Instance.new("Frame")
+	local Ruafimg = Instance.new("ImageLabel")
+	local RuafimgCorner = Instance.new("UICorner")
+	local TextLabelNoti = Instance.new("TextLabel")
+	local CloseContainer = Instance.new("Frame")
+	local CloseImage = Instance.new("ImageLabel")
+	local TextButton = Instance.new("TextButton")
+	local TextLabelNoti2 = Instance.new("TextLabel")
+
+	NotiFrame.Name = "NotiFrame"
+	NotiFrame.Parent = NotiContainer
+	NotiFrame.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	NotiFrame.BackgroundTransparency = 1.000
+	NotiFrame.ClipsDescendants = true
+	NotiFrame.Position = UDim2.new(0, 0, 0, 0)
+	NotiFrame.Size = UDim2.new(1, 0, 0, 0)
+	NotiFrame.AutomaticSize = Enum.AutomaticSize.Y
+
+	Noticontainer.Name = "Noticontainer"
+	Noticontainer.Parent = NotiFrame
+	Noticontainer.Position = UDim2.new(1, 0, 0, 0)
+	Noticontainer.Size = UDim2.new(1, 0, 1, 6)
+	Noticontainer.AutomaticSize = Enum.AutomaticSize.Y
+	Noticontainer.BackgroundColor3 = getgenv().UIColor["Background 3 Color"]
+	UICorner.CornerRadius = UDim.new(0, 4)
+	UICorner.Parent = Noticontainer
+
+	Topnoti.Name = "Topnoti"
+	Topnoti.Parent = Noticontainer
+	Topnoti.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	Topnoti.BackgroundTransparency = 1.000
+	Topnoti.Position = UDim2.new(0, 0, 0, 5)
+	Topnoti.Size = UDim2.new(1, 0, 0, 25)
+
+	Ruafimg.Name = "Ruafimg"
+	Ruafimg.Parent = Topnoti
+	Ruafimg.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	Ruafimg.BackgroundTransparency = 1.000
+	Ruafimg.Position = UDim2.new(0, 5, 0, getgenv().T1 and 5 or 0)
+	Ruafimg.Size = UDim2.new(0, getgenv().T1 and 30 or 25, 0, getgenv().T1 and 15 or 25)
+	Ruafimg.Image = getgenv().UIColor["Logo Image"]
+
+	RuafimgCorner.CornerRadius = UDim.new(1, 0)
+	RuafimgCorner.Name = "RuafimgCorner"
+	RuafimgCorner.Parent = Ruafimg
+	
+	local colorR = tostring(Library_Function.Getcolor(getgenv().UIColor['Title Text Color'])[1])
+	local colorG = tostring(Library_Function.Getcolor(getgenv().UIColor['Title Text Color'])[2])
+	local colorB = tostring(Library_Function.Getcolor(getgenv().UIColor['Title Text Color'])[3])
+	local color = colorR .. ',' .. colorG .. ',' .. colorB
+    TextLabelNoti.Text = "<font color=\"rgb(" .. tostring(color or "255,206,27") .. ")\">" .. tostring("Bear Hub") .. "</font> " .. tostring(getgenv().TitleNameNoti or "")
+    
+	TextLabelNoti.Name = "TextLabelNoti"
+	TextLabelNoti.Parent = Topnoti
+	TextLabelNoti.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	TextLabelNoti.BackgroundTransparency = 1.000
+	TextLabelNoti.Position = UDim2.new(0, getgenv().T1 and 40 or 35, 0, 0)
+	TextLabelNoti.Size = UDim2.new(1, getgenv().T1 and -40 or -35, 1, 0)
+	TextLabelNoti.Font = Enum.Font.GothamBold
+	TextLabelNoti.TextSize = 14.000
+	TextLabelNoti.TextWrapped = true
+	TextLabelNoti.TextXAlignment = Enum.TextXAlignment.Left
+	TextLabelNoti.RichText = true
+	TextLabelNoti.TextColor3 = getgenv().UIColor["GUI Text Color"]
+
+	CloseContainer.Name = "CloseContainer"
+	CloseContainer.Parent = Topnoti
+	CloseContainer.AnchorPoint = Vector2.new(1, 0.5)
+	CloseContainer.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	CloseContainer.BackgroundTransparency = 1.000
+	CloseContainer.Position = UDim2.new(1, -4, 0.5, 0)
+	CloseContainer.Size = UDim2.new(0, 22, 0, 22)
+
+	CloseImage.Name = "CloseImage"
+	CloseImage.Parent = CloseContainer
+	CloseImage.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	CloseImage.BackgroundTransparency = 1.000
+	CloseImage.Size = UDim2.new(1, 0, 1, 0)
+	CloseImage.Image = "rbxassetid://3926305904"
+	CloseImage.ImageRectOffset = Vector2.new(284, 4)
+	CloseImage.ImageRectSize = Vector2.new(24, 24)
+	CloseImage.ImageColor3 = getgenv().UIColor["Search Icon Color"]
+
+	TextButton.Parent = CloseContainer
+	TextButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	TextButton.BackgroundTransparency = 1.000
+	TextButton.Size = UDim2.new(1, 0, 1, 0)
+	TextButton.Font = Enum.Font.SourceSans
+	TextButton.Text = ""
+	TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TextButton.TextSize = 14.000
+
+	if Description then
+		TextLabelNoti2.Name = 'TextColor'
+		TextLabelNoti2.Parent = Noticontainer
+		TextLabelNoti2.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+		TextLabelNoti2.BackgroundTransparency = 1.000
+		TextLabelNoti2.Position = UDim2.new(0, 10, 0, 35)
+		TextLabelNoti2.Size = UDim2.new(1, -15, 0, 0)
+		TextLabelNoti2.Font = Enum.Font.GothamBold
+		TextLabelNoti2.Text = Description
+		TextLabelNoti2.TextSize = 14.000
+		TextLabelNoti2.TextXAlignment = Enum.TextXAlignment.Left
+		TextLabelNoti2.RichText = true
+		TextLabelNoti2.TextColor3 = getgenv().UIColor["Text Color"]
+		TextLabelNoti2.AutomaticSize = Enum.AutomaticSize.Y
+		TextLabelNoti2.TextWrapped = true
+	end
+
+	local function remove()
+		TweenService:Create(Noticontainer, TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]), {
+			Position = UDim2.new(1, 0, 0, 0)
+		}):Play()
+		wait(.25)
+		NotiFrame:Destroy()
+	end
+
+	TweenService:Create(Noticontainer, TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]), {
+		Position = UDim2.new(0, 0, 0, 0)
+	}):Play()
+
+	TextButton.MouseEnter:Connect(function()
+		TweenService:Create(CloseImage, TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]), {
+			ImageColor3 = getgenv().UIColor["Search Icon Highlight Color"]
+		}):Play()
+	end)
+
+	TextButton.MouseLeave:Connect(function()
+		TweenService:Create(CloseImage, TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]), {
+			ImageColor3 = getgenv().UIColor["Search Icon Color"]
+		}):Play()
+	end)
+
+	TextButton.MouseButton1Click:Connect(function()
+		wait(.25)
+		remove()
+	end)
+
+	spawn(function()
+		wait(Duration)
+		remove()
+	end)
+
+end
+
+function Library:Notify(Setting, bypass)
+	if not getgenv().Config or bypass then
+		local s, e = pcall(function()
+			libCreateNoti(Setting)
+		end)
+		if e then
+			print(e)
+		end
+	end
+end
+
+function Library:CreateWindow(Setting)
+    local TitleNameMain = Setting.Title or "Bear Hub"
+    getgenv().MainDesc = Setting.Desc or Setting.Subtitle or ""
+    
+    if Setting.Image then
+        getgenv().UIColor["Logo Image"] = Setting.Image
+    end
+    
+	local djtmemay = false
+	cac = false
+
+	local Main = Instance.new("Frame")
+	local maingui = Instance.new("ImageLabel")
+	local MainCorner = Instance.new("UICorner")
+	local TopMain = Instance.new("Frame")
+	local Ruafimg = Instance.new("ImageLabel")
+	local TextLabelMain = Instance.new("TextLabel")
+	local PageControl = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local ControlList = Instance.new("ScrollingFrame")
+	local UIListLayout = Instance.new("UIListLayout")
+	local ControlTitle = Instance.new("TextLabel")
+	local MainPage = Instance.new("Frame")
+	local UIPage = Instance.new("UIPageLayout")
+	local Concacontainer = Instance.new("Frame")
+	local Concacmain = Instance.new("Frame")
+	local MainContainer
+
+	Main.Name = "Main"
+	Main.Parent = Library_Function.Gui
+	Main.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+	Main.BackgroundTransparency = 1.000
+	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Main.AnchorPoint = Vector2.new(0.5, 0.5)
+	Main.Size = UDim2.new(0, 629, 0, 359)
+
+	makeDraggable(Main, Main)
+
+	maingui.Name = "maingui"
+	maingui.Parent = Main
+	maingui.AnchorPoint = Vector2.new(0.5, 0.5)
+	maingui.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	maingui.BackgroundTransparency = 1.000
+	maingui.Position = UDim2.new(0.5, 0, 0.5, 0)
+	maingui.Selectable = true
+	maingui.Size = UDim2.new(1, 30, 1, 30)
+	maingui.Image = "rbxassetid://8068653048"
+	maingui.ScaleType = Enum.ScaleType.Slice
+	maingui.SliceCenter = Rect.new(15, 15, 175, 175)
+	maingui.SliceScale = 1.300
+	maingui.ImageColor3 = getgenv().UIColor["Border Color"]
+	maingui.ImageTransparency = 1
+
+	maingui.ImageColor3 = getgenv().UIColor['Title Text Color']
+
+	MainContainer = Instance.new("ImageLabel")
+	MainContainer.Name = "MainContainer"
+	MainContainer.Parent = Main
+	MainContainer.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+	MainContainer.Size = UDim2.new(1, 0, 1, 0)
+
+	local uistr = Instance.new("UIStroke", MainContainer);
+	uistr.Thickness = 1;
+	uistr.Color = Color3.fromRGB(90, 90, 70);
+
+	local uigradient = Instance.new("UIGradient", MainContainer);
+	uigradient.Color = ColorSequence.new{
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+	}
+	uigradient.Rotation = 90
+	uigradient.Transparency = NumberSequence.new{
+		NumberSequenceKeypoint.new(0, 0.92),
+		NumberSequenceKeypoint.new(1, 0.92)
+	}
+
+	getgenv().ReadyForGuiLoaded = true
+	
+	MainCorner.CornerRadius = UDim.new(0, 5)
+	MainCorner.Name = "MainCorner"
+	MainCorner.Parent = MainContainer
+
+	Concacontainer.Name = "Concacontainer"
+	Concacontainer.Parent = MainContainer
+	Concacontainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Concacontainer.BackgroundTransparency = 1.000
+	Concacontainer.ClipsDescendants = true
+	Concacontainer.Position = UDim2.new(0, 0, 0, 30)
+	Concacontainer.Size = UDim2.new(1, 0, 1, -30)
+	
+	Concacmain.Name = "Concacmain"
+	Concacmain.Parent = Concacontainer
+	Concacmain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Concacmain.BackgroundTransparency = 1.000
+	Concacmain.Selectable = true
+	Concacmain.Size = UDim2.new(1, 0, 1, 0)
+	
+	TopMain.Name = "TopMain"
+	TopMain.Parent = MainContainer
+	TopMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TopMain.BackgroundTransparency = 1.000
+	TopMain.Size = UDim2.new(1, 0, 0, 25)
+	
+	local TopStroke = Instance.new("Frame", TopMain)
+	TopStroke.Name = "TopStroke"
+	TopStroke.BackgroundColor3 = Color3.fromRGB(90, 90, 70)
+	TopStroke.BackgroundTransparency = 0.6
+	TopStroke.BorderSizePixel = 0
+	TopStroke.P
