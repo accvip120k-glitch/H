@@ -1,7 +1,9 @@
+-- source shared by araujozwx 
+
 if getgenv().Nousigi then 
-	if game.CoreGui:FindFirstChild("Nousigi Hub GUI") then
+	if game.CoreGui:FindFirstChild("Night Mystic GUI") then
 		for i, v in ipairs(game.CoreGui:GetChildren()) do
-			if string.find(v.Name,  "Nousigi Hub") then
+			if string.find(v.Name,  "Night Mystic") then
 				v:Destroy()
 			end
 		end
@@ -9,45 +11,52 @@ if getgenv().Nousigi then
 end
 getgenv().Nousigi = true
 
--- Theme: Viền trắng + Màu vàng thay vì cam
 local DisableAnimation = game.Players.LocalPlayer.PlayerGui:FindFirstChild('TouchGui')
+
 local T1UIColor = {
-	["Border Color"] = Color3.fromRGB(255, 255, 255),  -- Viền trắng
-	["Click Effect Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Setting Icon Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Logo Image"] = "rbxassetid://76571437829227",
-	["Search Icon Color"] = Color3.fromRGB(240, 240, 230),
-	["Search Icon Highlight Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["GUI Text Color"] = Color3.fromRGB(235, 235, 230),
-	["Text Color"] = Color3.fromRGB(235, 235, 230),
-	["Placeholder Text Color"] = Color3.fromRGB(170, 170, 160),
-	["Title Text Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Background Main Color"] = Color3.fromRGB(18, 18, 22),
-	["Background 1 Color"] = Color3.fromRGB(28, 28, 34),
-	["Background 1 Transparency"] = 0.1,
-	["Background 2 Color"] = Color3.fromRGB(38, 38, 46),
-	["Background 3 Color"] = Color3.fromRGB(48, 48, 56),
-	["Background Image"] = "",
-	["Page Selected Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Section Text Color"] = Color3.fromRGB(220, 220, 210),
-	["Section Underline Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Toggle Border Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Toggle Checked Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Toggle Desc Color"] = Color3.fromRGB(185, 185, 185),
-	["Button Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Label Color"] = Color3.fromRGB(38, 38, 42),
-	["Dropdown Icon Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Dropdown Selected Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Dropdown Selected Check Color"] = Color3.fromRGB(218, 165, 32), -- Vàng đậm hơn
-	["Textbox Highlight Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Box Highlight Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Slider Line Color"] = Color3.fromRGB(255, 215, 0), -- Vàng
-	["Slider Highlight Color"] = Color3.fromRGB(218, 165, 32), -- Vàng đậm hơn
-	["Tween Animation 1 Speed"] = DisableAnimation and 0 or 0.25,
-	["Tween Animation 2 Speed"] = DisableAnimation and 0 or 0.5,
-	["Tween Animation 3 Speed"] = DisableAnimation and 0 or 0.1,
-	["Text Stroke Transparency"] = 0.5
+    ["Border Color"] = Color3.fromRGB(50, 50, 50),
+    ["Click Effect Color"] = Color3.fromRGB(200, 40, 40),
+    ["Setting Icon Color"] = Color3.fromRGB(200, 200, 200),
+    ["Logo Image"] = "rbxassetid://114259856900004",
+    ["Search Icon Color"] = Color3.fromRGB(200, 40, 40),
+    ["Search Icon Highlight Color"] = Color3.fromRGB(255, 60, 60),
+    ["GUI Text Color"] = Color3.fromRGB(240, 240, 240),
+    ["Text Color"] = Color3.fromRGB(240, 240, 240),
+    ["Placeholder Text Color"] = Color3.fromRGB(100, 100, 100),
+    ["Title Text Color"] = Color3.fromRGB(255, 255, 255),
+    
+    ["Background Main Color"] = Color3.fromRGB(15, 15, 15), 
+    ["Background 1 Color"] = Color3.fromRGB(22, 22, 22),
+    ["Background 1 Transparency"] = 0.05,
+    ["Background 2 Color"] = Color3.fromRGB(30, 30, 30),
+    ["Background 3 Color"] = Color3.fromRGB(25, 25, 25),
+    ["Background Image"] = "",
+    
+    ["Page Selected Color"] = Color3.fromRGB(200, 40, 40),
+    ["Section Text Color"] = Color3.fromRGB(255, 255, 255),
+    ["Section Underline Color"] = Color3.fromRGB(200, 40, 40),
+    ["Toggle Border Color"] = Color3.fromRGB(70, 70, 70),
+    ["Toggle Checked Color"] = Color3.fromRGB(200, 40, 40),
+    ["Toggle Desc Color"] = Color3.fromRGB(180, 180, 180),
+    
+    ["Button Color"] = Color3.fromRGB(35, 35, 35),
+    ["Label Color"] = Color3.fromRGB(28, 28, 28),
+    ["Dropdown Icon Color"] = Color3.fromRGB(200, 40, 40),
+    ["Dropdown Selected Color"] = Color3.fromRGB(200, 40, 40),
+    ["Dropdown Selected Check Color"] = Color3.fromRGB(255, 255, 255),
+    
+    ["Textbox Highlight Color"] = Color3.fromRGB(200, 40, 40),
+    ["Box Highlight Color"] = Color3.fromRGB(200, 40, 40),
+    ["Slider Line Color"] = Color3.fromRGB(45, 45, 45),
+    ["Slider Highlight Color"] = Color3.fromRGB(200, 40, 40),
+    
+    ["Tween Animation 1 Speed"] = DisableAnimation and 0 or 0.25,
+    ["Tween Animation 2 Speed"] = DisableAnimation and 0 or 0.5,
+    ["Tween Animation 3 Speed"] = DisableAnimation and 0 or 0.1,
+    ["Text Stroke Transparency"] = .8 
 }
+
+
 
 getgenv().UIColor = T1UIColor
 getgenv().AllControls = {}
@@ -99,7 +108,7 @@ end
 
 Library_Function.Gui = Instance.new('ScreenGui')
 Library_Function.Gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Library_Function.Gui.Name = 'Nousigi Hub GUI'
+Library_Function.Gui.Name = 'Night Mystic GUI'
 Library_Function.Gui.Enabled = false
 
 getgenv().ReadyForGuiLoaded = false
@@ -115,139 +124,260 @@ end)
 
 Library_Function.NotiGui = Instance.new('ScreenGui')
 Library_Function.NotiGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Library_Function.NotiGui.Name = 'Nousigi Hub Notification'
+Library_Function.NotiGui.Name = 'Night Mystic Notification'
 
 Library_Function.HideGui = Instance.new('ScreenGui')
 Library_Function.HideGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Library_Function.HideGui.Name = 'Nousigi Hub Btn'
+Library_Function.HideGui.Name = 'Night Mystic'
 
 
-local btnHide = Instance.new('TextButton', Library_Function.HideGui) 
-btnHide.BackgroundTransparency = 1
-btnHide.Text = ""
-btnHide.AnchorPoint = Vector2.new(0, 1)
-btnHide.Size = UDim2.new(0, 50, 0, 50)
-btnHide.Position = UDim2.new(0, 15, 1, -15)
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 
-local btnHideFrame = Instance.new('Frame', btnHide)
-btnHideFrame.AnchorPoint = Vector2.new(0, 1)
-btnHideFrame.Size = UDim2.new(0, 50, 0, 50)
-btnHideFrame.Position = UDim2.new(0, 0, 1, 0)
-btnHideFrame.Name = "dut dit"
-btnHideFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-btnHideFrame.BackgroundTransparency = getgenv().UIToggled and 0 or .25
+local ToggleScreenGui = Instance.new("ScreenGui")
+ToggleScreenGui.Parent = game:GetService("CoreGui")
+ToggleScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ToggleScreenGui.Name = "NazuXWindowsToggleUltimate"
 
-local imgHide = Instance.new('ImageLabel', btnHide)
-imgHide.AnchorPoint = Vector2.new(0, 0)
-imgHide.Image = getgenv().UIColor["Logo Image"]
-imgHide.BackgroundTransparency = 1
-imgHide.Size = UDim2.new(0, getgenv().UIToggled and (getgenv().T1 and 30 or 40) or (getgenv().T1 and 25 or 30), 0, getgenv().UIToggled and (getgenv().T1 and 30 or 40) or (getgenv().T1 and 25 or 30))
-imgHide.AnchorPoint = Vector2.new(.5, .5)
-imgHide.Position = UDim2.new(.5, 0, .5, 0)
+local mainButton = Instance.new("ImageButton")
+mainButton.Name = "ToggleButton"
+mainButton.Parent = ToggleScreenGui
+mainButton.Size = UDim2.new(0, 60, 0, 60)
+mainButton.Position = UDim2.new(0, 15, 1, -75) 
+mainButton.Draggable = true
+mainButton.AnchorPoint = Vector2.new(0, 1)
+mainButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+mainButton.BackgroundTransparency = 0.2
+mainButton.BorderSizePixel = 0
+mainButton.AutoButtonColor = false
+mainButton.Image = ""
 
-local UICornerBtnHide = Instance.new("UICorner")
-UICornerBtnHide.Parent = btnHideFrame
-UICornerBtnHide.CornerRadius = UDim.new(1, 0)
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(1, 0)
+UICorner.Parent = mainButton
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Parent = mainButton
+UIStroke.Color = Color3.fromRGB(255, 255, 255)
+UIStroke.Thickness = 1.5
+UIStroke.Transparency = 0.7
+
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.Parent = mainButton
+ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+ImageLabel.Size = UDim2.new(0, 40, 0, 40)
+ImageLabel.BackgroundTransparency = 1
+ImageLabel.BorderSizePixel = 0
+ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.Image = "rbxassetid://105245380363493"
+
+local isToggled = getgenv().UIToggled or false
+local isHovering = false
+local zoomedIn = false
+local faded = false
+
+if isToggled then
+    mainButton.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    ImageLabel.Size = UDim2.new(0, 27, 0, 27)
+else
+    mainButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    ImageLabel.Size = UDim2.new(0, 40, 0, 40)
+end
+
+local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local hoverTweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local defaultTweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local fluentTweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local clickTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+
+local fadeInTween = TweenService:Create(mainButton, tweenInfo, {BackgroundTransparency = 0.25})
+local fadeOutTween = TweenService:Create(mainButton, tweenInfo, {BackgroundTransparency = 0.2})
+
+local dragging, dragInput, dragStart, startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    mainButton.Position = UDim2.new(
+        startPos.X.Scale,
+        startPos.X.Offset + delta.X,
+        startPos.Y.Scale,
+        startPos.Y.Offset + delta.Y
+    )
+end
+
+mainButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainButton.Position
+        
+        TweenService:Create(mainButton, fluentTweenInfo, {
+            Size = UDim2.new(0, 66, 0, 66),
+            BackgroundTransparency = 0.05
+        }):Play()
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+mainButton.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+mainButton.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        TweenService:Create(mainButton, fluentTweenInfo, {
+            Size = UDim2.new(0, 60, 0, 60),
+            BackgroundTransparency = 0.2
+        }):Play()
+    end
+end)
+
+uis.InputChanged:Connect(function(input)
+    if dragging and input == dragInput then
+        update(input)
+    end
+end)
+
+mainButton.MouseEnter:Connect(function()
+    isHovering = true
+    
+    TweenService:Create(mainButton, fluentTweenInfo, {
+        Size = UDim2.new(0, 64, 0, 64),
+        BackgroundTransparency = 0.1
+    }):Play()
+    
+    TweenService:Create(UIStroke, fluentTweenInfo, {
+        Transparency = 0.4
+    }):Play()
+    
+    TweenService:Create(mainButton, hoverTweenInfo, {
+        BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    }):Play()
+end)
+
+mainButton.MouseLeave:Connect(function()
+    isHovering = false
+    local targetColor = isToggled and Color3.fromRGB(15, 15, 15) or Color3.fromRGB(45, 45, 45)
+    
+    TweenService:Create(mainButton, fluentTweenInfo, {
+        Size = UDim2.new(0, 60, 0, 60),
+        BackgroundTransparency = 0.2
+    }):Play()
+    
+    TweenService:Create(UIStroke, fluentTweenInfo, {
+        Transparency = 0.7
+    }):Play()
+    
+    TweenService:Create(mainButton, defaultTweenInfo, {
+        BackgroundColor3 = targetColor
+    }):Play()
+end)
+
+mainButton.MouseButton1Down:Connect(function()
+    TweenService:Create(mainButton, hoverTweenInfo, {
+        Size = UDim2.new(0, 58, 0, 58),
+        BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+    }):Play()
+end)
+
+mainButton.MouseButton1Click:Connect(function()
+    Library.ToggleUI()
+    
+    isToggled = getgenv().UIToggled
+    
+    local scaleTween = TweenService:Create(mainButton, clickTweenInfo, {
+        Size = UDim2.new(0, 55, 0, 55)
+    })
+    
+    local scaleBackTween = TweenService:Create(mainButton, clickTweenInfo, {
+        Size = UDim2.new(0, 60, 0, 60)
+    })
+    
+    local iconScaleTween = TweenService:Create(ImageLabel, clickTweenInfo, {
+        Size = isToggled and UDim2.new(0, 27, 0, 27) or UDim2.new(0, 40, 0, 40)
+    })
+    
+    local targetColor = isToggled and Color3.fromRGB(15, 15, 15) or Color3.fromRGB(45, 45, 45)
+    local colorTween = TweenService:Create(mainButton, defaultTweenInfo, {
+        BackgroundColor3 = targetColor
+    })
+    
+    if faded then
+        fadeOutTween:Play()
+    else
+        fadeInTween:Play()
+    end
+    faded = not faded
+    
+    scaleTween:Play()
+    iconScaleTween:Play()
+    colorTween:Play()
+    
+    spawn(function()
+        wait(0.15)
+        scaleBackTween:Play()
+    end)
+    
+    if isToggled then
+        print("Toggle ON - Ultimate Toggle Activated")
+    else
+        print("Toggle OFF - Ultimate Toggle Deactivated")
+    end
+end)
 
 Library.ToggleUI = function()
-	getgenv().UIToggled = not getgenv().UIToggled
-	local sizeXY = getgenv().UIToggled and (getgenv().T1 and 30 or 40) or (getgenv().T1 and 25 or 30)
-	TweenService:Create(imgHide, TweenInfo.new(DisableAnimation and 0 or .25), {
-		Size = UDim2.new(0, sizeXY, 0, sizeXY)
-	}):Play()
-	TweenService:Create(btnHideFrame, TweenInfo.new(DisableAnimation and 0 or .25), {
-		BackgroundTransparency = getgenv().UIToggled and 0 or .25
-	}):Play()
-	if game.CoreGui:FindFirstChild("Nousigi Hub GUI") then
-		for a, b in ipairs(game.CoreGui:GetChildren()) do
-			if b.Name == "Nousigi Hub GUI" then
-				b.Enabled = getgenv().UIToggled
-			end
-		end
-	end
+    getgenv().UIToggled = not getgenv().UIToggled
+    
+    if game.CoreGui:FindFirstChild("Night Mystic GUI") then
+        for a, b in ipairs(game.CoreGui:GetChildren()) do
+            if b.Name == "Night Mystic GUI" then
+                b.Enabled = getgenv().UIToggled
+            end
+        end
+    end
+    
+    isToggled = getgenv().UIToggled
+    
+    local iconScaleTween = TweenService:Create(ImageLabel, defaultTweenInfo, {
+        Size = isToggled and UDim2.new(0, 27, 0, 27) or UDim2.new(0, 40, 0, 40)
+    })
+    
+    local targetColor = isToggled and Color3.fromRGB(15, 15, 15) or Color3.fromRGB(45, 45, 45)
+    local colorTween = TweenService:Create(mainButton, defaultTweenInfo, {
+        BackgroundColor3 = targetColor
+    })
+    
+    iconScaleTween:Play()
+    colorTween:Play()
 end
 
 Library.DestroyUI = function()
-	if game.CoreGui:FindFirstChild("Nousigi Hub GUI") then
-		for i, v in ipairs(game.CoreGui:GetChildren()) do
-			if string.find(v.Name,  "Nousigi Hub") then
-				v:Destroy()
-			end
-		end
-	end
+    if game.CoreGui:FindFirstChild("Night Mystic GUI") then
+        for i, v in ipairs(game.CoreGui:GetChildren()) do
+            if string.find(v.Name, "Night Mystic") then
+                v:Destroy()
+            end
+        end
+    end
+    
+    local toggleGui = game.CoreGui:FindFirstChild("NazuXWindowsToggleUltimate")
+    if toggleGui then
+        toggleGui:Destroy()
+    end
+    
+    getgenv().Nousigi = false
+    getgenv().UIToggled = false
+    getgenv().AllControls = {}
+    getgenv().ReadyForGuiLoaded = false
 end
-
-if true then
-	local button = btnHide -- Assuming this is a TextButton or ImageButton
-	local UIS = game:GetService("UserInputService")
-	
-	local dragging = false
-	local dragInput, dragStart, startPos
-	local holdTime = 0.1 -- Time to hold before dragging is enabled
-	local holdStarted = 0
-	
-	-- Function to update the button's position
-	local function update(input)
-		local delta = input.Position - dragStart
-		button.Position = UDim2.new(
-			startPos.X.Scale, startPos.X.Offset + delta.X,
-			startPos.Y.Scale, startPos.Y.Offset + delta.Y
-		)
-	end
-	
-	-- Function to detect the start of dragging (for both mouse and touch)
-	local function onInputBegan(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			holdStarted = tick() -- Record the time when holding starts
-			dragStart = input.Position
-			startPos = button.Position
-	
-			-- Listen for release to stop dragging
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-					holdStarted = 0 -- Reset the hold timer
-				end
-			end)
-		end
-	end
-	
-	-- Function to detect when dragging stops
-	local function onInputEnded(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = false
-			holdStarted = 0 -- Reset the hold timer
-		end
-	end
-	
-	-- Detect input movement (for both mouse and touch)
-	local function onInputChanged(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			dragInput = input
-		end
-	end
-	
-	-- Connect the events
-	button.InputBegan:Connect(onInputBegan)
-	button.InputEnded:Connect(onInputEnded)
-	button.InputChanged:Connect(onInputChanged)
-	
-	-- RenderStepped updates the position while dragging
-	RunService.RenderStepped:Connect(function()
-		if holdStarted > 0 and (tick() - holdStarted >= holdTime) and not dragging then
-			dragging = true
-		end
-	
-		if dragging and dragInput then
-			update(dragInput)
-		end
-	end)
-		
-end
-
-btnHide.MouseButton1Click:Connect(function() 
-	Library.ToggleUI()
-end)
 
 local NotiContainer = Instance.new("Frame")
 local NotiList = Instance.new("UIListLayout")
@@ -337,7 +467,7 @@ local libCreateNoti = function(Setting)
 	local colorG = tostring(Library_Function.Getcolor(getgenv().UIColor['Title Text Color'])[2])
 	local colorB = tostring(Library_Function.Getcolor(getgenv().UIColor['Title Text Color'])[3])
 	local color = colorR .. ',' .. colorG .. ',' .. colorB
-    TextLabelNoti.Text = "<font color=\"rgb(" .. tostring(color or "255,206,27") .. ")\">" .. tostring("Bear Hub") .. "</font> " .. tostring(getgenv().TitleNameNoti or "")
+    TextLabelNoti.Text = "<font color=\"rgb(" .. tostring(color or "255,80,80") .. ")\">" .. tostring(TitleNameMain or "Night Mystic") .. "</font> " .. tostring(getgenv().TitleNameNoti or "")
     
 	TextLabelNoti.Name = "TextLabelNoti"
 	TextLabelNoti.Parent = Topnoti
@@ -444,7 +574,7 @@ function Library:Notify(Setting, bypass)
 end
 
 function Library:CreateWindow(Setting)
-    local TitleNameMain = Setting.Title or "Bear Hub"
+    local TitleNameMain = Setting.Title or "Night Mystic"
     getgenv().MainDesc = Setting.Desc or Setting.Subtitle or ""
     
     if Setting.Image then
@@ -455,100 +585,4 @@ function Library:CreateWindow(Setting)
 	cac = false
 
 	local Main = Instance.new("Frame")
-	local maingui = Instance.new("ImageLabel")
-	local MainCorner = Instance.new("UICorner")
-	local TopMain = Instance.new("Frame")
-	local Ruafimg = Instance.new("ImageLabel")
-	local TextLabelMain = Instance.new("TextLabel")
-	local PageControl = Instance.new("Frame")
-	local UICorner = Instance.new("UICorner")
-	local ControlList = Instance.new("ScrollingFrame")
-	local UIListLayout = Instance.new("UIListLayout")
-	local ControlTitle = Instance.new("TextLabel")
-	local MainPage = Instance.new("Frame")
-	local UIPage = Instance.new("UIPageLayout")
-	local Concacontainer = Instance.new("Frame")
-	local Concacmain = Instance.new("Frame")
-	local MainContainer
-
-	Main.Name = "Main"
-	Main.Parent = Library_Function.Gui
-	Main.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-	Main.BackgroundTransparency = 1.000
-	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
-	Main.AnchorPoint = Vector2.new(0.5, 0.5)
-	Main.Size = UDim2.new(0, 629, 0, 359)
-
-	makeDraggable(Main, Main)
-
-	maingui.Name = "maingui"
-	maingui.Parent = Main
-	maingui.AnchorPoint = Vector2.new(0.5, 0.5)
-	maingui.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
-	maingui.BackgroundTransparency = 1.000
-	maingui.Position = UDim2.new(0.5, 0, 0.5, 0)
-	maingui.Selectable = true
-	maingui.Size = UDim2.new(1, 30, 1, 30)
-	maingui.Image = "rbxassetid://8068653048"
-	maingui.ScaleType = Enum.ScaleType.Slice
-	maingui.SliceCenter = Rect.new(15, 15, 175, 175)
-	maingui.SliceScale = 1.300
-	maingui.ImageColor3 = getgenv().UIColor["Border Color"]
-	maingui.ImageTransparency = 1
-
-	maingui.ImageColor3 = getgenv().UIColor['Title Text Color']
-
-	MainContainer = Instance.new("ImageLabel")
-	MainContainer.Name = "MainContainer"
-	MainContainer.Parent = Main
-	MainContainer.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
-	MainContainer.Size = UDim2.new(1, 0, 1, 0)
-
-	local uistr = Instance.new("UIStroke", MainContainer);
-	uistr.Thickness = 1;
-	uistr.Color = Color3.fromRGB(90, 90, 70);
-
-	local uigradient = Instance.new("UIGradient", MainContainer);
-	uigradient.Color = ColorSequence.new{
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
-	}
-	uigradient.Rotation = 90
-	uigradient.Transparency = NumberSequence.new{
-		NumberSequenceKeypoint.new(0, 0.92),
-		NumberSequenceKeypoint.new(1, 0.92)
-	}
-
-	getgenv().ReadyForGuiLoaded = true
-	
-	MainCorner.CornerRadius = UDim.new(0, 5)
-	MainCorner.Name = "MainCorner"
-	MainCorner.Parent = MainContainer
-
-	Concacontainer.Name = "Concacontainer"
-	Concacontainer.Parent = MainContainer
-	Concacontainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Concacontainer.BackgroundTransparency = 1.000
-	Concacontainer.ClipsDescendants = true
-	Concacontainer.Position = UDim2.new(0, 0, 0, 30)
-	Concacontainer.Size = UDim2.new(1, 0, 1, -30)
-	
-	Concacmain.Name = "Concacmain"
-	Concacmain.Parent = Concacontainer
-	Concacmain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Concacmain.BackgroundTransparency = 1.000
-	Concacmain.Selectable = true
-	Concacmain.Size = UDim2.new(1, 0, 1, 0)
-	
-	TopMain.Name = "TopMain"
-	TopMain.Parent = MainContainer
-	TopMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TopMain.BackgroundTransparency = 1.000
-	TopMain.Size = UDim2.new(1, 0, 0, 25)
-	
-	local TopStroke = Instance.new("Frame", TopMain)
-	TopStroke.Name = "TopStroke"
-	TopStroke.BackgroundColor3 = Color3.fromRGB(90, 90, 70)
-	TopStroke.BackgroundTransparency = 0.6
-	TopStroke.BorderSizePixel = 0
-	TopStroke.P
+	local maingui = Instance.new("ImageLab
